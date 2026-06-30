@@ -12,9 +12,16 @@
 
 # Build artifacts
 build/
+pack/prebuilt/
 out/
+tools/
+tools/scripts
+boards/d13x_rivoride_m4-nor/src/etctmp/
 *.o
 *.a
 *.elf
 *.hex
 *.map
+*.depend
+*.dep
+*.pyc
