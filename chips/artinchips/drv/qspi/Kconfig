@@ -19,4 +19,4 @@ config AIC_QSPI_DRV_V12
 
 
 
-source "../vendor/artinchip/chips/artinchips/hal/qspi/Kconfig"
+source "../contest2026_052_xinfanzhichuang/chips/artinchips/hal/qspi/Kconfig"

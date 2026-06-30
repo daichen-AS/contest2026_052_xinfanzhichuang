@@ -283,7 +283,7 @@ config LT9811EXB_RESOLUTION
 
 
 if AIC_PANEL_CUSTOM_RESOLUTION && !AIC_DISP_PQ_TOOL
-source "../vendor/artinchip/chips/artinchips/drv/display/panel/Kconfig.timing"
+source "../contest2026_052_xinfanzhichuang/chips/artinchips/drv/display/panel/Kconfig.timing"
 endif
 
 endmenu

@@ -1,11 +1,11 @@
-source "../vendor/artinchip/chips/artinchips/hal/cmu/Kconfig"
+source "../contest2026_052_xinfanzhichuang/chips/artinchips/hal/cmu/Kconfig"
 
 config  DRIVER_QSPI_HAL_EN
   bool "QSPI hal"
 	default n
 
 if DRIVER_QSPI_HAL_EN
-source "../vendor/artinchip/chips/artinchips/hal/qspi/Kconfig"
+source "../contest2026_052_xinfanzhichuang/chips/artinchips/hal/qspi/Kconfig"
 endif
 
 config  DRIVER_SDMC_HAL_EN
@@ -13,5 +13,5 @@ config  DRIVER_SDMC_HAL_EN
 	default n
 
 if DRIVER_SDMC_HAL_EN
-source "../vendor/artinchip/chips/artinchips/hal/sdmc/Kconfig"
+source "../contest2026_052_xinfanzhichuang/chips/artinchips/hal/sdmc/Kconfig"
 endif

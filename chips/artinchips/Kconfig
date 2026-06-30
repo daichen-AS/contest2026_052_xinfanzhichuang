@@ -70,7 +70,7 @@ config AIC_USING_UART7
     default n
 endif
 menu "Display Support"
-source "../vendor/artinchip/chips/artinchips/drv/display/Kconfig"
+source "../contest2026_052_xinfanzhichuang/chips/artinchips/drv/display/Kconfig"
 endmenu
 
 
@@ -123,11 +123,11 @@ config AIC_USING_CTP
 
 
 if AIC_USING_CTP
-    source "../vendor/artinchip/chips/artinchips/peripheral/touch/Kconfig"
+    source "../contest2026_052_xinfanzhichuang/chips/artinchips/peripheral/touch/Kconfig"
 endif
 
 source "../contest2026_052_xinfanzhichuang/chips/artinchips/drv/Kconfig"
-source "../vendor/artinchip/chips/artinchips/hal/Kconfig"
+source "../contest2026_052_xinfanzhichuang/chips/artinchips/hal/Kconfig"
 
 endmenu
 

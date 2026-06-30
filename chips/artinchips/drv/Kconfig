@@ -8,7 +8,7 @@ config AIC_USING_I2C
     depends on I2C_DRIVER
 
 if AIC_USING_I2C
-source "../vendor/artinchip/chips/artinchips/drv/i2c/Kconfig"
+source "../contest2026_052_xinfanzhichuang/chips/artinchips/drv/i2c/Kconfig"
 endif
 
 config AIC_USING_WDT
@@ -22,7 +22,7 @@ config AIC_USING_RTC
     depends on RTC
 
 if AIC_USING_RTC
-source "../vendor/artinchip/chips/artinchips/drv/rtc/Kconfig"
+source "../contest2026_052_xinfanzhichuang/chips/artinchips/drv/rtc/Kconfig"
 endif
 
 config AIC_USING_PWM
@@ -31,7 +31,7 @@ config AIC_USING_PWM
     depends on PWM
 
 if AIC_USING_PWM
-#source "../vendor/artinchip/chips/artinchips/drv/pwm/Kconfig"
+#source "../contest2026_052_xinfanzhichuang/chips/artinchips/drv/pwm/Kconfig"
 endif
 
 config USING_SFUD
@@ -40,7 +40,7 @@ config USING_SFUD
     depends on ALARM_ARCH
 
 if USING_SFUD
-source "../vendor/artinchip/chips/artinchips/drv/sfud/Kconfig"
+source "../contest2026_052_xinfanzhichuang/chips/artinchips/drv/sfud/Kconfig"
 endif
 
 config USING_MTD
@@ -57,7 +57,7 @@ config AIC_SPINOR_DRV
     default n
 
 if AIC_SPINOR_DRV
-source "../vendor/artinchip/chips/artinchips/drv/spinor/Kconfig"
+source "../contest2026_052_xinfanzhichuang/chips/artinchips/drv/spinor/Kconfig"
 endif
 
 config AIC_SDMC_DRV
@@ -67,7 +67,7 @@ config AIC_SDMC_DRV
     default n
 
 if AIC_SDMC_DRV
-source "../vendor/artinchip/chips/artinchips/drv/sdmc/Kconfig"
+source "../contest2026_052_xinfanzhichuang/chips/artinchips/drv/sdmc/Kconfig"
 endif
 
 config AIC_USING_DMA
@@ -80,13 +80,13 @@ config AIC_USING_AUDIO
     default n
 
 if AIC_USING_AUDIO
-source "../vendor/artinchip/chips/artinchips/drv/audio/Kconfig"
+source "../contest2026_052_xinfanzhichuang/chips/artinchips/drv/audio/Kconfig"
 endif
 
 
-source "../vendor/artinchip/chips/artinchips/drv/gpio/Kconfig"
+source "../contest2026_052_xinfanzhichuang/chips/artinchips/drv/gpio/Kconfig"
 
-source "../vendor/artinchip/chips/artinchips/drv/pinctrl/Kconfig"
+source "../contest2026_052_xinfanzhichuang/chips/artinchips/drv/pinctrl/Kconfig"
 
 
 choice 
