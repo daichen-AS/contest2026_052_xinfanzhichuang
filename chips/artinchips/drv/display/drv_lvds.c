@@ -8,6 +8,7 @@
 #include <aic_hal.h>
 #include <aic_hal_lvds.h>
 
+#include <nuttx/kmalloc.h>
 #include "drv_fb.h"
 
 struct aic_lvds_comp {
@@ -16,9 +17,9 @@ struct aic_lvds_comp {
   u64 sclk_rate;
   u64 pll_disp_rate;
   struct aic_panel *panel;
-  struct panel_lvds *lvds;
+  struct panel_lvds lvds;
 };
-static struct aic_lvds_comp *g_aic_lvds_comp;
+static struct aic_lvds_comp *g_aic_lvds_comp = NULL;
 
 #ifdef CONFIG_AIC_DISP_PQ_TOOL
 AIC_PQ_TOOL_PINMUX_CONFIG(disp_pinmux_config);
@@ -57,6 +58,8 @@ static void lvds_phy_1_init(struct aic_lvds_comp *comp, u32 value) {
 
 static int aic_lvds_clk_enable(void) {
   struct aic_lvds_comp *comp = aic_lvds_request_drvdata();
+  if (!comp)
+    return -EINVAL;
   u32 pixclk = comp->pixclk;
 
   hal_clk_set_freq(CLK_PLL_FRA2, comp->pll_disp_rate);
@@ -107,7 +110,9 @@ static void lvds_set_option_config(struct aic_lvds_comp *comp,
 
 static int aic_lvds_enable(void) {
   struct aic_lvds_comp *comp = aic_lvds_request_drvdata();
-  struct panel_lvds *lvds = comp->lvds;
+  if (!comp)
+    return -EINVAL;
+  struct panel_lvds *lvds = &comp->lvds;
 
   lvds_set_mode(comp, lvds);
   lvds_set_option_config(comp, lvds);
@@ -120,6 +125,8 @@ static int aic_lvds_enable(void) {
 
 static int aic_lvds_disable(void) {
   struct aic_lvds_comp *comp = aic_lvds_request_drvdata();
+  if (!comp)
+    return -EINVAL;
 
   reg_clr_bit(comp->regs + LVDS_CTL, LVDS_CTL_EN);
   aic_lvds_release_drvdata();
@@ -133,6 +140,8 @@ static int aic_lvds_attach_panel(struct aic_panel *panel,
   int i = 0;
   struct panel_lvds *lvds;
   u32 pixclk;
+  if (!comp)
+    return -EINVAL;
 
   if (desc) {
     pixclk = desc->timings->pixelclock;
@@ -141,14 +150,22 @@ static int aic_lvds_attach_panel(struct aic_panel *panel,
     pixclk = panel->timings->pixelclock;
     lvds = panel->lvds;
   }
-  comp->lvds = lvds;
+  if (!lvds)
+    return -EINVAL;
+
+  if (lvds->lanes[0] == 0)
+    lvds->lanes[0] = (u32)AIC_LVDS_LINK0_LANES;
+  if (lvds->lanes[1] == 0)
+    lvds->lanes[1] = (u32)AIC_LVDS_LINK1_LANES;
+
+  comp->lvds = *lvds;
   comp->panel = panel;
   comp->pixclk = pixclk;
 
   if (lvds->link_mode != DUAL_LINK)
-    comp->sclk_rate = pixclk * 7;
+    comp->sclk_rate = (u64)pixclk * 7;
   else
-    comp->sclk_rate = pixclk * 3 + (pixclk >> 1); // * 3.5
+    comp->sclk_rate = (u64)pixclk * 3 + (pixclk >> 1); // * 3.5
 
   pll_disp_rate = comp->sclk_rate;
   while (pll_disp_rate < PLL_DISP_FREQ_MIN) {
@@ -157,18 +174,15 @@ static int aic_lvds_attach_panel(struct aic_panel *panel,
   }
   comp->pll_disp_rate = pll_disp_rate;
 
-  if (!lvds->lanes[0])
-    lvds->lanes[0] = AIC_LVDS_LINK0_LANES;
-  if (!lvds->lanes[1])
-    lvds->lanes[1] = AIC_LVDS_LINK1_LANES;
-
   aic_lvds_release_drvdata();
   return 0;
 }
 
 static int aic_lvds_get_output_bpp(void) {
   struct aic_lvds_comp *comp = aic_lvds_request_drvdata();
-  struct panel_lvds *lvds = comp->lvds;
+  if (!comp)
+    return 24;
+  struct panel_lvds *lvds = &comp->lvds;
   int bpp;
 
   switch (lvds->mode) {

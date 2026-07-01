@@ -75,6 +75,27 @@
 #define PANEL_VSW 10
 #endif
 
+#ifdef CONFIG_AIC_RGB_DATA_MIRROR
+#define AIC_RGB_DATA_MIRROR CONFIG_AIC_RGB_DATA_MIRROR
+#endif
+
+#ifdef CONFIG_AIC_RGB_CLK_CTL
+#define AIC_RGB_CLK_CTL CONFIG_AIC_RGB_CLK_CTL
+#endif
+
+#ifdef CONFIG_AIC_RGB_DATA_ORDER
+#define AIC_RGB_DATA_ORDER CONFIG_AIC_RGB_DATA_ORDER
+#endif
+
+#ifdef CONFIG_AIC_RGB_FORMAT
+#define AIC_RGB_FORMAT CONFIG_AIC_RGB_FORMAT
+#endif
+
+#ifdef CONFIG_AIC_RGB_MODE
+#define AIC_RGB_MODE CONFIG_AIC_RGB_MODE
+#endif
+
+
 static int simple_panel_prepare(void) { return 0; }
 
 static int simple_panel_unprepare(void) { return 0; }
@@ -104,6 +125,7 @@ static struct aic_panel_funcs simple_panel_funcs = {
     .register_callback = simple_panel_register_callback,
 };
 
+#ifdef CONFIG_AIC_DISPLAY_RGB
 static struct display_timing simple_rgb_timing = {
     .pixelclock = PANEL_PIXELCLOCK * 1000000,
     .hactive = PANEL_HACTIVE,
@@ -115,6 +137,24 @@ static struct display_timing simple_rgb_timing = {
     .vfront_porch = PANEL_VFP,
     .vsync_len = PANEL_VSW,
 };
+
+static struct panel_rgb simple_rgb_config = {
+    .mode = AIC_RGB_MODE,
+    .format = AIC_RGB_FORMAT,
+    .data_order = AIC_RGB_DATA_ORDER,
+    .data_mirror = AIC_RGB_DATA_MIRROR,
+    .clock_phase = AIC_RGB_CLK_CTL,
+};
+
+/* RGB Panel for Vela */
+struct aic_panel simple_rgb_panel = {
+    .name = "simple_rgb",
+    .connector_type = AIC_RGB_COM,
+    .timings = &simple_rgb_timing,
+    .rgb = &simple_rgb_config,
+    .funcs = &simple_panel_funcs,
+};
+#endif
 
 static struct display_timing simple_lvds_timing = {
     .pixelclock = PANEL_PIXELCLOCK * 1000000,
@@ -128,49 +168,21 @@ static struct display_timing simple_lvds_timing = {
     .vsync_len = PANEL_VSW,
 };
 
-static struct panel_rgb simple_rgb_config = {
-    .mode = PRGB,
-#ifdef CONFIG_AIC_PRGB_24BIT
-    .format = PRGB_24BIT,
-#elif defined(CONFIG_AIC_PRGB_16BIT_LD)
-    .format = PRGB_16BIT_LD,
-#elif defined(CONFIG_AIC_PRGB_16BIT_HD)
-    .format = PRGB_16BIT_HD,
-#else
-    .format = PRGB_24BIT,
-#endif
-#ifdef CONFIG_DATA_ORDER_RGB
-    .data_order = RGB,
-#elif defined(CONFIG_DATA_ORDER_BGR)
-    .data_order = BGR,
-#elif defined(CONFIG_DATA_ORDER_RBG)
-    .data_order = RBG,
-#elif defined(CONFIG_DATA_ORDER_BRG)
-    .data_order = BRG,
-#elif defined(CONFIG_DATA_ORDER_GRB)
-    .data_order = GRB,
-#elif defined(CONFIG_DATA_ORDER_GBR)
-    .data_order = GBR,
-#else
-    .data_order = RGB,
-#endif
-    .data_mirror = 1,
-    .clock_phase = 0x1,
-};
-
-/* RGB Panel for Vela */
-struct aic_panel simple_rgb_panel = {
-    .name = "simple_rgb",
-    .connector_type = AIC_RGB_COM,
-    .timings = &simple_rgb_timing,
-    .rgb = &simple_rgb_config,
-    .funcs = &simple_panel_funcs,
+static struct panel_lvds simple_lvds_config = {
+    .mode = JEIDA_18BIT,
+    .link_mode = SINGLE_LINK0,
+    .link_swap = 0,
+    .pols[0] = 0,
+    .pols[1] = 0,
+    .lanes[0] = AIC_LVDS_LINK0_LANES,
+    .lanes[1] = AIC_LVDS_LINK1_LANES,
 };
 
 /* LVDS Panel for Vela */
 struct aic_panel simple_lvds_panel = {
     .name = "simple_lvds",
     .connector_type = AIC_LVDS_COM,
+    .lvds = &simple_lvds_config,
     .timings = &simple_lvds_timing,
     .funcs = &simple_panel_funcs,
 };

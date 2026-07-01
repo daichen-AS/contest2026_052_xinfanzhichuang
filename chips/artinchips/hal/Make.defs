@@ -19,7 +19,7 @@ include $(AIC_VENDOR_DIR)/chips/artinchips/hal/gpio/Make.defs
 include $(AIC_VENDOR_DIR)/chips/artinchips/hal/uart/Make.defs
 
 # HAL Drivers: I2C (Enabled if I2C used)
-ifneq ($(filter y,$(CONFIG_AIC_USING_I2C0) $(CONFIG_AIC_USING_I2C1) $(CONFIG_AIC_USING_SOFT_I2C)),)
+ifneq ($(filter y,$(CONFIG_AIC_USING_I2C) $(CONFIG_AIC_USING_SOFT_I2C)),)
 include $(AIC_VENDOR_DIR)/chips/artinchips/hal/i2c/Make.defs
 endif
 

@@ -67,6 +67,10 @@ CHIP_CSRCS += drv/display/drv_fb_helper.c
 ifeq ($(CONFIG_LCD),y)
 CHIP_CSRCS += drv/display/drv_lcd.c
 endif
+
+ifeq ($(CONFIG_AIC_DISP_LVDS),y)
+CHIP_CSRCS += drv/display/drv_lvds.c
+endif
 endif
 
 # Panel Drivers

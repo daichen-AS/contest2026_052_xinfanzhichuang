@@ -8,6 +8,11 @@ config AIC_DE_DRV_V12
     default y
     depends on AIC_DE_DRV
 
+config AIC_DE_DRV_V11
+    bool "ArtInChip Display Engine (DE) V11 Driver"
+    default n
+    depends on AIC_DE_DRV && ARCH_CHIP_D13X
+
 config AIC_DISPLAY_DRV
     bool
     default y if AIC_DE_DRV

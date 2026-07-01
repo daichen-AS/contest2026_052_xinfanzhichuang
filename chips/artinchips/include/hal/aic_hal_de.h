@@ -35,7 +35,7 @@ enum de_qos_plane {
 
 #define LAYER_CONFIG_TIME_US 15
 
-#elif defined(AIC_DE_DRV_V11) || defined(AIC_DE_V11)
+#elif defined(CONFIG_AIC_DE_DRV_V11) || defined(CONFIG_AIC_DE_V11)
 #define DE_FREQ (150 * 1000 * 1000)
 
 #define UI_LAYER_NUM 1

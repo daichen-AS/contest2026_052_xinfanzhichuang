@@ -621,17 +621,6 @@ int up_fbinitialize(int display) {
   if (ret < 0) {
     pr_err("failed to register framebuffer device: %d\n", ret);
   }
-
-  /* fb_register_device clears the framebuffer (memset to 0).
-   * Re-draw the color block and enable panel after registration.
-   */
-  // fbi = aicfb_get_drvdata();
-  // if (fbi) {
-  //   fb_size = aicfb_calc_fb_size(fbi);
-  //   fb_color_block(fbi, fb_size);
-  //   aicfb_enable_panel(fbi, AICFB_ON);
-  // }
-
   return ret;
 }
 

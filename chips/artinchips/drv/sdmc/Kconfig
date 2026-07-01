@@ -9,6 +9,12 @@ config AIC_CARD_DETECT_BY_GPIO
     help
       Enable SD card detect by GPIO. If not enabled, SD card detect will be done by polling.
 
+config AIC_SDMC_HOTPLUG_PIN_PULLUP
+    bool "SDMC hotplug gpio pullup"
+    default n
+    help
+      Enable SDMC hotplug gpio pullup.
+
 config AUTO_MOUNT_PATH
     string "Auto mount path"
     default "/sdcard"

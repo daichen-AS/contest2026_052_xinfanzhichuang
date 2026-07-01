@@ -69,12 +69,12 @@ static struct aic_i2c_priv_s *g_aic_i2c_priv[I2C_MAX_NUM];
 
 /* I2C configuration table - populated from Kconfig settings */
 static const struct {
-  const char *name;
+  char *name;
   int         speed_config;
   int         irq_index;
   int         clk_id;
 } g_i2c_config[I2C_MAX_NUM] = {
-#ifdef CONFIG_AIC_USING_I2C0
+#ifdef CONFIG_AIC_I2C0
   {
     .name = "i2c0",
     .speed_config = CONFIG_AIC_DEV_I2C0_SPEED,
@@ -84,7 +84,7 @@ static const struct {
 #else
   {NULL, 0, 0, 0},
 #endif
-#ifdef CONFIG_AIC_USING_I2C1
+#ifdef CONFIG_AIC_I2C1
   {
     .name = "i2c1",
     .speed_config = CONFIG_AIC_DEV_I2C1_SPEED,
@@ -94,22 +94,12 @@ static const struct {
 #else
   {NULL, 0, 0, 0},
 #endif
-#ifdef CONFIG_AIC_USING_I2C2
+#ifdef CONFIG_AIC_I2C2
   {
     .name = "i2c2",
     .speed_config = CONFIG_AIC_DEV_I2C2_SPEED,
     .irq_index = AIC_IRQ_I2C2,
     .clk_id = CLK_I2C2,
-  },
-#else
-  {NULL, 0, 0, 0},
-#endif
-#ifdef CONFIG_AIC_USING_I2C3
-  {
-    .name = "i2c3",
-    .speed_config = CONFIG_AIC_DEV_I2C3_SPEED,
-    .irq_index = AIC_IRQ_I2C3,
-    .clk_id = CLK_I2C3,
   },
 #else
   {NULL, 0, 0, 0},
@@ -318,9 +308,6 @@ int aic_i2cbus_uninitialize(FAR struct i2c_master_s *dev) {
     i2cerr("Failed to shutdown I2C device %d: %d\n", port, ret);
     return ret;
   }
-
-  i2c_unregister(dev);
-
   nxmutex_destroy(&priv->lock);
 #ifdef CONFIG_AIC_I2C_INTERRUPT_MODE
   nxsem_destroy(&priv->waitsem);

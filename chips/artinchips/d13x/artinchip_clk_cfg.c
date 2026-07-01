@@ -17,6 +17,7 @@ extern struct aic_clk_ops aic_clk_disp_ops;
 /* Fixed rate clocks */
 FRCLK(CLK_OSC24M, "osc24m", CLOCK_24M);
 FRCLK(CLK_OSC32K, "osc32k", CLOCK_32K);
+FRCLK(CLK_APB1, "apb1", CLOCK_24M);
 
 /* PLL clocks */
 
@@ -49,8 +50,6 @@ FPCLK(CLK_AXI_AHB_SRC1, "axi_ahb_src1", CLK_PLL_INT1, PARENT("pll_int1"),
       CLK_AXI_AHB_REG, -1, -1, 0, 5);
 FPCLK(CLK_APB0_SRC1, "apb0_src1", CLK_PLL_INT1, PARENT("pll_int1"),
       CLK_APB0_REG, -1, -1, 0, 5);
-FPCLK(CLK_APB1, "apb1", CLK_OSC24M, PARENT("osc24m"), CLK_APB1_REG, -1, -1, 0,
-      0);
 FPCLK(CLK_DMA, "dma", CLK_AHB0, PARENT("ahb0"), CLK_DMA_REG, 12, -1, 0, 0);
 FPCLK(CLK_CE, "ce", CLK_PLL_INT1, PARENT("pll_int1"), CLK_CE_REG, 12, 8, 0, 5);
 FPCLK(CLK_USBD, "usb_dev", CLK_AHB0, PARENT("ahb0"), CLK_USBD_REG, 12, -1, 0,
@@ -81,8 +80,7 @@ FPCLK(CLK_SYSCFG, "syscfg", CLK_OSC24M, PARENT("osc24m"), CLK_SYSCFG_REG, 12,
 FPCLK(CLK_RTC, "rtc", CLK_OSC32K, PARENT("osc32k"), CLK_RTC_REG, 12, -1, 0, 0);
 FPCLK_BASE(CLK_AUDIO_SCLK, "audio_sclk", CLK_PLL_INT1, PARENT("pll_int1"), CLK_AUDIO_REG, -1,
       -1, 0, 1, 49, 4);
-FPCLK(CLK_CODEC, "codec", CLK_AUDIO_SCLK, PARENT("audio_sclk"), CLK_CODEC_REG, 12,
-      8, 0, 0);
+
 FPCLK(CLK_I2S0, "i2s0", CLK_AUDIO_SCLK, PARENT("audio_sclk"), CLK_I2S0_REG, 12, 8,
       0, 0);
 FPCLK(CLK_DE, "de", CLK_PLL_INT1, PARENT("pll_int1"), CLK_DE_REG, 12, 8, 0, 5);
@@ -223,7 +221,6 @@ const struct aic_clk_comm_cfg *aic_clk_cfgs[AIC_CLK_NUM] = {
     AIC_CLK_CFG(CLK_SPIENC),
     AIC_CLK_CFG(CLK_I2S0),
     AIC_CLK_CFG(CLK_AUDIO_SCLK),
-    AIC_CLK_CFG(CLK_CODEC),
     AIC_CLK_CFG(CLK_LCD),
     AIC_CLK_CFG(CLK_LVDS),
     AIC_CLK_CFG(CLK_DE),

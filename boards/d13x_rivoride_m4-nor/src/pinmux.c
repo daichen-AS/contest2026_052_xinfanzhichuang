@@ -18,8 +18,8 @@ struct aic_pinmux aic_pinmux_config[] = {
     {5, PIN_PULL_UP, 3, "PA.1"},
 #endif
 
-#ifdef CONFIG_AIC_USING_UART5
-    /* uart5 */
+#ifdef CONFIG_AIC_USING_UART1
+    /* uart1 */
     {5, PIN_PULL_DIS, 3, "PE.4"},
     {5, PIN_PULL_UP, 3, "PE.5"},
 #endif
@@ -44,13 +44,17 @@ struct aic_pinmux aic_pinmux_config[] = {
     {2, PIN_PULL_DIS, 3, "PA.10"},
     {2, PIN_PULL_DIS, 3, "PA.11"},
 #endif
-#ifdef CONFIG_AIC_USING_I2C0
+#ifdef CONFIG_AIC_I2C0
     {4, PIN_PULL_DIS, 3, "PA.8"}, // SCK
     {4, PIN_PULL_DIS, 3, "PA.9"}, // SDA
 #endif
-#ifdef CONFIG_AIC_USING_I2C1
+#ifdef CONFIG_AIC_I2C1
     {4, PIN_PULL_DIS, 3, "PA.2"}, // SCK
     {4, PIN_PULL_DIS, 3, "PA.3"}, // SDA
+#endif
+#ifdef CONFIG_AIC_I2C2
+    {4, PIN_PULL_DIS, 3, "PA.8"}, // SCK
+    {4, PIN_PULL_DIS, 3, "PA.9"}, // SDA
 #endif
 #ifdef CONFIG_AIC_USING_QSPI0
 #ifndef CONFIG_AIC_SYSCFG_SIP_FLASH_ENABLE
@@ -88,6 +92,20 @@ struct aic_pinmux aic_pinmux_config[] = {
     {2, PIN_PULL_UP, 7, "PB.10"},
     {2, PIN_PULL_UP, 7, "PB.11"},
 #endif
+
+#ifdef CONFIG_AIC_USING_SDMC1
+    {2, PIN_PULL_UP, 7, "PC.0"},
+    {2, PIN_PULL_UP, 7, "PC.1"},
+    {2, PIN_PULL_UP, 7, "PC.2"},
+    {2, PIN_PULL_UP, 7, "PC.3"},
+    {2, PIN_PULL_UP, 7, "PC.4"},
+    {2, PIN_PULL_UP, 7, "PC.5"},
+    {2, PIN_PULL_UP, 7, "PC.6"},
+#endif
+
+
+
+
 #ifdef CONFIG_AIC_WIRELESS_LAN
     {1, PIN_PULL_DIS, 3, "PD.1"}, // WIFI_PWR_ON
 #endif
@@ -103,6 +121,7 @@ struct aic_pinmux aic_pinmux_config[] = {
 #ifdef CONFIG_AIC_PANEL_ENABLE_GPIO
     {1, PIN_PULL_DIS, 3, CONFIG_AIC_PANEL_ENABLE_GPIO},
 #endif
+
 #ifdef CONFIG_AIC_PRGB_24BIT
     {2, PIN_PULL_DIS, 3, "PD.0"},
     {2, PIN_PULL_DIS, 3, "PD.1"},
@@ -311,6 +330,36 @@ struct aic_pinmux aic_pinmux_config[] = {
     {2, PIN_PULL_DIS, 3, "PD.27"},
 #endif
 
+#ifdef AIC_LVDS_LINK_0
+    {3, PIN_PULL_DIS, 3, "PD.18"},
+    {3, PIN_PULL_DIS, 3, "PD.19"},
+    {3, PIN_PULL_DIS, 3, "PD.20"},
+    {3, PIN_PULL_DIS, 3, "PD.21"},
+    {3, PIN_PULL_DIS, 3, "PD.22"},
+    {3, PIN_PULL_DIS, 3, "PD.23"},
+    {3, PIN_PULL_DIS, 3, "PD.24"},
+    {3, PIN_PULL_DIS, 3, "PD.25"},
+    {3, PIN_PULL_DIS, 3, "PD.26"},
+    {3, PIN_PULL_DIS, 3, "PD.27"},
+#endif
+
+#ifdef AIC_DISP_MIPI_DSI
+    {4, PIN_PULL_DIS, 3, "PD.18"},
+    {4, PIN_PULL_DIS, 3, "PD.19"},
+    {4, PIN_PULL_DIS, 3, "PD.20"},
+    {4, PIN_PULL_DIS, 3, "PD.21"},
+    {4, PIN_PULL_DIS, 3, "PD.22"},
+    {4, PIN_PULL_DIS, 3, "PD.23"},
+    {4, PIN_PULL_DIS, 3, "PD.24"},
+    {4, PIN_PULL_DIS, 3, "PD.25"},
+    {4, PIN_PULL_DIS, 3, "PD.26"},
+    {4, PIN_PULL_DIS, 3, "PD.27"},
+#endif
+
+
+
+    
+    
 #ifdef CONFIG_AIC_USING_PWM0
     {4, PIN_PULL_DIS, 3, "PE.0"},
     {4, PIN_PULL_DIS, 3, "PE.1"},
@@ -319,7 +368,7 @@ struct aic_pinmux aic_pinmux_config[] = {
     /* FIX: PE.11(3)=I2S0_DIN, PE.12(3)=SPI3_CLK - NOT PWM.
      * Use PC.1(7)=PWM1 for correct PWM output. */
     // {3, PIN_PULL_DIS, 7, "PC.1"},
-    {3, PIN_PULL_DOWN, 0, "PE.12"},
+    {3, PIN_PULL_DOWN, 0, "PE.11"},
 #endif
 #ifdef CONFIG_AIC_USING_PWM2
     {3, PIN_PULL_DOWN, 0, "PE.13"},
@@ -330,11 +379,14 @@ struct aic_pinmux aic_pinmux_config[] = {
     {3, PIN_PULL_DIS, 8, "PE.3"},
 #endif
 
-    
-#ifdef CONFIG_AIC_USING_AUDIO
-#ifdef CONFIG_AIC_AUDIO_PLAYBACK
-    // {5, PIN_PULL_DIS, 3, "PE.12"},
-    {1, PIN_PULL_DIS, 3, CONFIG_AIC_AUDIO_PA_ENABLE_GPIO},
+#ifdef AIC_USING_AUDIO
+#ifdef AIC_AUDIO_DMIC
+    {4, PIN_PULL_DIS, 3, "PD.16"},
+    {4, PIN_PULL_DIS, 3, "PD.17"},
+#endif
+#ifdef AIC_AUDIO_PLAYBACK
+    {5, PIN_PULL_DIS, 3, "PE.12"},
+    {1, PIN_PULL_DIS, 3, AIC_AUDIO_PA_ENABLE_GPIO},
 #endif
 #endif
 #ifdef CONFIG_AIC_USING_CTP
@@ -351,6 +403,15 @@ struct aic_pinmux aic_pinmux_config[] = {
     {1, PIN_PULL_UP, 3, CONFIG_AIC_PM_POWER_KEY_GPIO, FLAG_WAKEUP_SOURCE},
 #endif
 #endif
+
+
+#if (defined(AIC_USING_USB0_DEVICE) || defined(AIC_USING_USB0_HOST))
+    /* usb0 */
+    {2, PIN_PULL_DIS, 3, "PU.0"},   // USB-DM
+    {2, PIN_PULL_DIS, 3, "PU.1"},   // USB-DP
+    {1, PIN_PULL_DIS, 3, "PD.8"},   // USB-ID
+#endif
+    
 };
 
 uint32_t aic_pinmux_config_size = ARRAY_SIZE(aic_pinmux_config);

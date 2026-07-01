@@ -82,19 +82,28 @@ config AIC_USING_SOFT_I2C
     default n
 	select I2C           # 开启总线级 I2C 支持 (关键)
     select I2C_DRIVER    # 开启字符设备接口 (/dev/i2c-x)
+    
 
-config AIC_USING_I2C0
+config AIC_USING_I2C
+    bool "Using I2C"
+    default n
+    depends on I2C_DRIVER && (ARCH_CHIP_D12X || ARCH_CHIP_D13X)
+
+if AIC_USING_I2C
+
+config AIC_I2C0
     bool "Using I2C0"
     default n
-	select I2C           # 开启总线级 I2C 支持 (关键)
-    select I2C_DRIVER    # 开启字符设备接口 (/dev/i2c-x)
 
-config AIC_USING_I2C1
+config AIC_I2C1
     bool "Using I2C1"
     default n
-	select I2C           # 开启总线级 I2C 支持 (关键)
-    select I2C_DRIVER    # 开启字符设备接口 (/dev/i2c-x)
+config AIC_I2C2
+    bool "Using I2C2"
+    default n
+    depends on ARCH_CHIP_D13X
 
+endif
 config AIC_USING_PWM
     bool "Using PWM"
     default n

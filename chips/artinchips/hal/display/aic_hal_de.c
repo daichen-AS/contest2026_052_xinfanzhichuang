@@ -230,7 +230,7 @@ void de_qos_urgent_config(void *base_addr, u32 only_active_en, u32 urgent_en,
   if (urgent_en)
     reg_set_bit(base_addr + QOS_V_URGENT, DMAR_URGENT_EN);
 
-#ifdef AIC_DE_DRV_V11
+#ifdef CONFIG_AIC_DE_DRV_V11
   if (only_active_en)
     reg_set_bit(base_addr + QOS_V_URGENT, ONLY_ACTIVE_REGION_EN);
 

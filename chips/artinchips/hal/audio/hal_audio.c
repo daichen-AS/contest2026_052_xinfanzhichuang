@@ -20,11 +20,11 @@
 
 static uint64_t hal_get_tick(void) { return clock_systime_ticks(); }
 
-static void hal_audio_clock_init(void){
-  hal_clk_set_freq(CLK_CODEC, AUDIO_FREQ_24576000);
+static void hal_audio_clock_init(void) {
+  hal_clk_enable(CLK_AUDIO_SCLK);
   hal_clk_set_freq(CLK_AUDIO_SCLK, AUDIO_FREQ_24576000);
 
-  int ret = hal_clk_enable_deassertrst_iter(CLK_CODEC);
+  int ret = hal_clk_enable_deassertrst_iter(CLK_AUDIO_SCLK);
   if (ret) {
     hal_log_err("Audio init error!\n");
   }
@@ -273,7 +273,6 @@ void hal_audio_set_samplerate(hal_audio_handle_t *haudio) {
   default:
     module_freq = 0;
   }
-  hal_clk_set_freq(CLK_CODEC, module_freq);
   hal_clk_set_freq(CLK_AUDIO_SCLK, module_freq);
 }
 

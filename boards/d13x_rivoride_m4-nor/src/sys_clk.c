@@ -76,6 +76,14 @@
 #define AIC_CLK_APB0_FREQ 100000000
 #endif
 #endif
+
+#ifndef AIC_CLK_APB1_FREQ
+#ifdef CONFIG_AIC_CLK_APB1_FREQ
+#define AIC_CLK_APB1_FREQ CONFIG_AIC_CLK_APB1_FREQ
+#else
+#define AIC_CLK_APB1_FREQ 2400000000
+#endif
+#endif
 #endif
 
 struct aic_sysclk {
@@ -93,7 +101,7 @@ struct aic_sysclk aic_sysclk_config[] = {
     {AIC_CLK_AXI0_FREQ, CLK_AXI0, CLK_AXI_AHB_SRC1}, /* 200000000 */
     {AIC_CLK_AHB0_FREQ, CLK_AHB0, CLK_AXI_AHB_SRC1}, /* 200000000 */
     {AIC_CLK_APB0_FREQ, CLK_APB0, CLK_APB0_SRC1},    /* 100000000 */
-    //    {24000000, CLK_APB1, 0},
+    {AIC_CLK_APB1_FREQ, CLK_APB1, CLK_OSC24M},
 };
 
 void aic_board_sysclk_init(void) {

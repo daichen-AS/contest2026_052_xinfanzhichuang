@@ -70,6 +70,9 @@ __attribute__((weak)) bool board_aic_sdcard_detect(int slotno) {
       det_init = true;
     }
     hal_gpio_get_value(GPIO_GROUP(pin), GPIO_GROUP_PIN(pin), &value);
+#ifdef CONFIG_AIC_SDMC_HOTPLUG_PIN_PULLUP
+      value = !value;
+#endif
     return value;
   }
   /*

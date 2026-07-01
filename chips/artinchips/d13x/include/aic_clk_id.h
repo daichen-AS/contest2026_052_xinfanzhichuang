@@ -52,7 +52,6 @@ enum clk_id {
   CLK_MTOP,
   CLK_I2S0,
   CLK_AUDIO_SCLK,
-  CLK_CODEC,
   CLK_GPIO,
   CLK_UART0,
   CLK_UART1,
@@ -141,13 +140,11 @@ enum clk_id {
 #define CLK_APB0_REG            (0x0120)
 #define CLK_APB1_REG            (0x0124)
 #define CLK_CPU_REG             (0x0200)
-#define CLK_DM_REG              (0x0204)
 #define CLK_WDT_REG             (0x020C)
 #define CLK_DISP_REG            (0x0220)
 #define CLK_AUDIO_REG           (0x0230)
 #define CLK_PWMCS_SDFM_REG      (0x0240)
 #define CLK_DMA_REG             (0x0410)
-#define CLK_DCE_REG             (0x0414)
 #define CLK_CE_REG              (0x0418)
 #define CLK_USBD_REG            (0x041C)
 #define CLK_USBH0_REG           (0x0420)
@@ -169,7 +166,6 @@ enum clk_id {
 #define CLK_PSADC_REG           (0x0818)
 #define CLK_MTOP_REG            (0x081C)
 #define CLK_I2S0_REG            (0x0820)
-#define CLK_CODEC_REG           (0x0830)
 #define CLK_GPIO_REG            (0x083C)
 #define CLK_UART0_REG           (0x0840)
 #define CLK_UART1_REG           (0x0844)

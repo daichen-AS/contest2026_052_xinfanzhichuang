@@ -202,6 +202,10 @@ config AIC_TOUCH_PANEL_NAME
     depends on AIC_USING_CTP
 
 if AIC_TOUCH_PANEL_GT911
+
+config AIC_TOUCH_GT911_PORT
+    int "GT911 I2C port"
+    default 0
 config AIC_TOUCH_GT911_USE_IRQ
     bool "GT911 use interrupt mode"
     default n

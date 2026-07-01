@@ -94,14 +94,16 @@ void artinchip_board_late_initialize(void) {
   }
 #endif
 
-#ifdef CONFIG_AIC_USING_I2C0
-  FAR struct i2c_master_s *i2c0 = aic_i2cbus_initialize(0);
+#ifdef CONFIG_AIC_USING_I2C
+  FAR struct i2c_master_s *i2c = aic_i2cbus_initialize(CONFIG_AIC_TOUCH_GT911_PORT);
 
-#ifdef CONFIG_AIC_TOUCH_PANEL_GT911
+  #ifdef CONFIG_AIC_TOUCH_PANEL_GT911
   syslog(LOG_INFO, "Start to initialize GT911 driver\n");
-  ret = gt911_driver_init(i2c0);
-  if (ret < 0) {
-    syslog(LOG_ERR, "Failed to initialize GT911 driver: %d\n", ret);
+  if (i2c != NULL) {
+    ret = gt911_driver_init(i2c);
+    if (ret < 0) {
+      syslog(LOG_ERR, "Failed to initialize GT911 driver: %d\n", ret);
+    }
   }
 #endif
 #endif

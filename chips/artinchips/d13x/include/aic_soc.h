@@ -215,6 +215,7 @@ typedef enum IRQn {
 #define UART_BASE 0x18710000UL   /* - 0x18710FFF, 4KB	,--	*/
 #define UARTx_BASE(id) id < UART_MAX_NUM ? (UART_BASE + (id)*0x1000UL) : 0
 #define LCD_BASE 0x18800000UL   /* - 0x18800FFF, 4KB	,64KB	*/
+#define LVDS_BASE 0x18810000UL /* - 0x188101FFF, 4KB	,64KB	*/
 #define DE_BASE 0x18A00000UL    /* - 0x18AFFFFF, 1MB	,1MB	*/
 #define GE_BASE 0x18B00000UL    /* - 0x18BFFFFF, 1MB	,1MB	*/
 #define VE_BASE 0x18C00000UL    /* - 0x18CFFFFF, 1MB	,1MB	*/

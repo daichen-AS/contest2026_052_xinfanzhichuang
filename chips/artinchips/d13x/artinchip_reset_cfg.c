@@ -11,7 +11,6 @@
 
 const struct aic_reset_signal aic_reset_signals[RESET_NUMBER] = {
     [RESET_DMA] = {CLK_DMA_REG, BIT(13)},
-    [RESET_DCE] = {CLK_DCE_REG, BIT(13)},
     [RESET_XSPI] = {CLK_XSPI_REG, BIT(13)},
     [RESET_QSPI0] = {CLK_QSPI0_REG, BIT(13)},
     [RESET_QSPI1] = {CLK_QSPI1_REG, BIT(13)},
@@ -19,7 +18,6 @@ const struct aic_reset_signal aic_reset_signals[RESET_NUMBER] = {
     [RESET_SDMMC1] = {CLK_SDMC1_REG, BIT(13)},
     [RESET_SYSCFG] = {CLK_SYSCFG_REG, BIT(13)},
     [RESET_SPIENC] = {CLK_SPIENC_REG, BIT(13)},
-    [RESET_CODEC] = {CLK_CODEC_REG, BIT(13)},
     [RESET_LCD] = {CLK_LCD_REG, BIT(13)},
     [RESET_LVDS] = {CLK_LVDS_REG, BIT(13)},
     [RESET_DE] = {CLK_DE_REG, BIT(13)},
